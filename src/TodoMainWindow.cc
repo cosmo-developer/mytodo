@@ -1,6 +1,7 @@
 #include "TodoMainWindow.hpp"
 #include <iostream>
 #include "TodoUtility.hpp"
+#include "Resource.hpp"
 TodoMainWindow::TodoMainWindow()
 {
 
@@ -37,7 +38,7 @@ void TodoMainWindow::loadCSS()
 {
 	cssProvider = Gtk::CssProvider::create();
 	// loading from path todomain.css
-	cssProvider->load_from_path("/usr/share/mytodo/styles/todomain.css");
+	cssProvider->load_from_path(TODOMAIN_CSS);
 	// adding css for whole application
 	Gtk::StyleContext::add_provider_for_display(Gdk::Display::get_default(), cssProvider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
@@ -60,18 +61,36 @@ void TodoMainWindow::createComponents()
 	rootContainer->append(*sideMenuContainer);
 
 	// creating drawer closer button
-	drawerCloser = Glib::RefPtr<ImageButton>(new ImageButton("/usr/share/mytodo/icons/sample.svg"));
-	sideMenuContainer->append(*drawerCloser);
-	drawerCloser->set_valign(Gtk::Align::START);
+	drawerCloser = Glib::RefPtr<ImageButton>(new ImageButton(SAMPLE_SVG));
+
 	drawerCloser->set_halign(Gtk::Align::END);
 
 	// creating drawer opener button
-	drawerOpener = Glib::RefPtr<ImageButton>(new ImageButton("/usr/share/mytodo/icons/sample.svg"));
+	drawerOpener = Glib::RefPtr<ImageButton>(new ImageButton(SAMPLE_SVG));
 	drawerOpener->set_valign(Gtk::Align::START);
 	rootContainer->append(*drawerOpener);
 	drawerOpener->set_visible(false); // by default drawer is opened and drawerOpener is hidden and drawerCloser is visible
 
-	// setting rootContainer as child of this window
+	// creatingg topSideMenuHeader
+	topSideMenuHeader = createManaged<Gtk::Box>(Gtk::Orientation::HORIZONTAL, 75);
+	topSideMenuHeader->set_vexpand(false);
+	topSideMenuHeader->set_valign(Gtk::Align::START);
+	topSideMenuHeader->set_size_request(TodoMainWindow::defaultDrawerWidth);
+
+	// adding topSideMenuHeader into first row of sideMenuContainer
+	sideMenuContainer->append(*topSideMenuHeader);
+	// addding drawerCloser into topSideMenuHeader
+	topSideMenuHeader->append(*drawerCloser);
+	topSideMenuHeader->set_halign(Gtk::Align::FILL);
+	/// creating user profile viewer
+	prrofileViewer = createManaged<UButton>(SAMPLE_IMAGE, "Sonu", CHEVRON_DOWN_SVG);
+
+	topSideMenuHeader->prepend(*prrofileViewer);
+
+	prrofileViewer->set_halign(Gtk::Align::START);
+	prrofileViewer->set_valign(Gtk::Align::CENTER);
+
+	//  setting rootContainer as child of this window
 	set_child(*rootContainer);
 }
 
@@ -82,7 +101,9 @@ void TodoMainWindow::addSignals()
 	//on opening drawer
 	this->sideMenuContainer->set_size_request(TodoMainWindow::defaultDrawerWidth);
 	this->drawerCloser->set_visible(true);
-	this->drawerOpener->set_visible(false); });
+	this->drawerOpener->set_visible(false); 
+	this->prrofileViewer->set_visible(true);
+	this->topSideMenuHeader->set_visible(true); });
 
 	drawerCloser->signal_clicked().connect([this]()
 																				 {
@@ -90,7 +111,9 @@ void TodoMainWindow::addSignals()
 		
 		this->sideMenuContainer->set_size_request(0);
 		this->drawerCloser->set_visible(false);
-		this->drawerOpener->set_visible(true); });
+		this->drawerOpener->set_visible(true); 
+		this->prrofileViewer->set_visible(false); 
+		this->topSideMenuHeader->set_visible(false); });
 }
 
 void TodoMainWindow::configureMediaQuery()

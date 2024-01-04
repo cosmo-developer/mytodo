@@ -1,11 +1,29 @@
-.root-container{
-	background-color:#ffffff;
-}
-.side-menu-container{
-	background-color:#faf8f7;
+.root-container {
+	background-color: #ffffff;
 }
 
-.image-button{
-	padding:0px;
-	margin:5px;
+.side-menu-container {
+	background-color: #faf8f7;
+}
+
+.image-button {
+	padding: 0px;
+	margin: 5px;
+	border: none;
+}
+
+.image-button .image {
+	background-color: #fafafa;
+	border: none;
+}
+
+.u-button {
+	border: none;
+	box-shadow: none;
+	justify-content: space-between;
+}
+
+.u-button .heading-image {
+	border-radius: 100%;
+	border: 2px solid brown;
 }

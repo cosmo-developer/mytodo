@@ -3,6 +3,7 @@
 #include <string>
 #include "ImageButton.hpp"
 #include "MediaQuery.hpp"
+#include "UButton.hpp"
 
 class TodoMainWindow : public Gtk::Window
 {
@@ -36,6 +37,10 @@ private:
 	Glib::RefPtr<ImageButton> drawerCloser;
 	// defining media query processor
 	Glib::RefPtr<MediaQuery<TodoMainWindow>> mediaQuery;
+	// css-class topSideMenuHeader
+	Glib::RefPtr<Gtk::Box> topSideMenuHeader;
+	// user profile viewer
+	Glib::RefPtr<UButton> prrofileViewer;
 
 private:
 	void loadCSS();

@@ -6,4 +6,6 @@ void TodoMainWindow::max400Processor(int width)
     sideMenuContainer->set_size_request(0);
     drawerOpener->set_visible(true);
     drawerCloser->set_visible(false);
+    prrofileViewer->set_visible(false);
+    this->topSideMenuHeader->set_visible(false);
 }
