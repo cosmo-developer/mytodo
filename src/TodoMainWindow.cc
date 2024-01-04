@@ -79,10 +79,11 @@ void TodoMainWindow::addSignals()
 {
 	drawerOpener->signal_clicked().connect([this]()
 																				 {
-		//on opening drawer
-		this->sideMenuContainer->set_size_request(TodoMainWindow::defaultDrawerWidth);
-		this->drawerCloser->set_visible(true);
-		this->drawerOpener->set_visible(false); });
+	//on opening drawer
+	this->sideMenuContainer->set_size_request(TodoMainWindow::defaultDrawerWidth);
+	this->drawerCloser->set_visible(true);
+	this->drawerOpener->set_visible(false); });
+
 	drawerCloser->signal_clicked().connect([this]()
 																				 {
 		//on closing drawer

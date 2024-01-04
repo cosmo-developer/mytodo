@@ -14,6 +14,7 @@ enum class MediaQueryCallbackSizeType
 template <typename T_obj>
 struct MediaQueryCallbackStructure
 {
+
     MediaQueryCallbackSizeType type;
     int size;
     void (T_obj::*callback)(int);
